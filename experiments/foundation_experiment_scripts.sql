@@ -1,13 +1,49 @@
 
 
--- This SQL file is for the Hands On Lab Guide for the 30-day free Snowflake trial account
--- The numbers below correspond to the sections of the Lab Guide in which SQL is to be run in a Snowflake worksheet
--- Modules 1 and 2 of the Lab Guide have no SQL to be run
+-- This SQL file is for the Foundation experiments to use in our30-day free Snowflake trial account
+-- The numbers below correspond to the sections of the Experiment Guide in which SQL is to be run in a Snowflake worksheet
 
+
+/* *********************************************************************************** */
+/* *** MODULE 1  ********************************************************************* */
+/*
+
+use database snowflake_sample_data;
+use schema TPCDS_SF100TCL;
+DESC TABLE "SNOWFLAKE_SAMPLE_DATA"."TPCDS_SF100TCL"."CALL_CENTER";
+select cc_name,cc_manager from call_center;
+
+
+select cc_name,cc_manager from
+"SNOWFLAKE_SAMPLE_DATA"."TPCDS_SF100TCL"."CALL_CENTER"
+
+select * from 
+"SNOWFLAKE_SAMPLE_DATA"."TPCDS_SF100TCL"."CUSTOMER_DEMOGRAPHICS" limit 10
+
+use role accountadmin;
+
+Use database citibike;
+
+create database junior_test;
+
+create role junior_dba;
+grant role junior_dba to user SUSANMARTIN
+
+use role junior_dba;
+
+show databases;
+
+alter database citibike set data_retention_time_in_days = 0;
+alter database citibike set data_retention_time_in_days = 2;
 
 /* *********************************************************************************** */
 /* *** MODULE 3  ********************************************************************* */
 /* *********************************************************************************** */
+
+-- 3.1.2
+use database snowflake_sample_data;
+use schema TPCDS_SF100TCL;
+create database Citibike
 
 -- 3.1.4
 
