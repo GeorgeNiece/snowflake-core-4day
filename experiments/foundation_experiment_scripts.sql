@@ -66,8 +66,14 @@ create or replace table trips
   gender integer);
 
 -- 3.2.4
+use schema public;
+use database citibike;
+list @CITIBIKE_TRIPS;
+show stages;
 
-list @citibike_trips;
+drop stage citibike_trips;
+
+CREATE STAGE "CITIBIKE"."PUBLIC".citibike_trips URL = 's3://snowflake-workshop-lab/citibike-trips';
 
 /* *********************************************************************************** */
 /* *** MODULE 4  ********************************************************************* */
@@ -84,9 +90,9 @@ file_format=CSV;
 truncate table trips;
 
 -- 4.2.7
-
+use role accountadmin;
 copy into trips from @citibike_trips
-file_format=CSV;
+file_format=CITI_BIKE_CSV;
 
 /* *********************************************************************************** */
 /* *** MODULE 5  ********************************************************************* */
