@@ -20,7 +20,7 @@ select cc_name,cc_manager from
 select * from 
 "SNOWFLAKE_SAMPLE_DATA"."TPCDS_SF100TCL"."CUSTOMER_DEMOGRAPHICS" limit 10
 
-use role accountadmin;
+use role sysadmin;
 
 Use database citibike;
 
