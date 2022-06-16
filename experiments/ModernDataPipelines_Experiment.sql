@@ -73,6 +73,22 @@ from table(information_schema.copy_history(
 
 select * from snowflake.account_usage.copy_history where TABLE_NAME ='TRIPS_RAW';
 
+-- enabling other roles to use the information
+select *
+from table(information_schema.copy_history(table_name=>'TRIPS_RAW', start_time=> dateadd(hours, -1, current_timestamp())));
+select * from snowflake.account_usage.copy_history where TABLE_NAME ='TRIPS_RAW';
+use role accountadmin;
+
+grant usage on database CITIBIKE_PIPELINES to role sysadmin;
+grant usage on schema CITIBIKE_PIPELINES.information_schema to role sysadmin;
+grant usage on schema PUBLIC to role sysadmin;
+
+use role SYSADMIN;
+select *
+from table(information_schema.copy_history(table_name=>'TRIPS_RAW', start_time=> dateadd(hours, -1, current_timestamp())));
+select * from snowflake.account_usage.copy_history where TABLE_NAME ='TRIPS_RAW';
+use role accountadmin;
+
 -- 23.1.1 Create Streams for trips and stations.
 create or replace stream stream_trips on table citibike_pipelines.public.trips_raw;
 create or replace stream stream_stations on table citibike_pipelines.public.trips_raw
