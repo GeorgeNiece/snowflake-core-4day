@@ -58,7 +58,7 @@ create or replace FILE FORMAT CITIBIKE_PIPELINES.PUBLIC.CSV
  
 
 alter warehouse DATAPIPELINES_WH set WAREHOUSE_SIZE = 'LARGE';
-copy into trips from @citibike_trips file_format=CSV;
+copy into trips from @citibike_trips file_format=CSV pattern = '.*.*[.]csv[.]gz';
 alter warehouse DATAPIPELINES_WH set WAREHOUSE_SIZE = 'XSMALL';
 
 -- Check we got the trips information-- Check if the trips table is loaded with data
