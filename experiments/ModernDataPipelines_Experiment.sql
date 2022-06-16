@@ -34,7 +34,7 @@ show stages like '%STREAMING%';
 create or replace table trips_raw (v variant);
 
 -- 22.1.2 Create a SNOW PIPE definition
-create or replace pipe trips_pipe auto_ingest=true as copy into trips_raw from @streaming_data/;
+create or replace pipe trips_pipe auto_ingest=true as copy into trips_raw from @streaming_data;
 
 -- 22.1.3 Review the Snow pipe definition and make a note of the notification channel value.
 show pipes;
