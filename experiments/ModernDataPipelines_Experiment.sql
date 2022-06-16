@@ -69,10 +69,13 @@ from table(information_schema.copy_history(
   table_name=>'citibike_pipelines.public.trips_raw',
   start_time=>dateadd(hour, -1, current_timestamp)));
 
+-- we can query the detail for the COPY_HISTORY view in ACCOUNT_USAGE directly
+
+select * from snowflake.account_usage.copy_history where TABLE_NAME ='TRIPS_RAW';
 
 -- 23.1.1 Create Streams for trips and stations.
 create or replace stream stream_trips on table citibike_pipelines.public.trips_raw;
-create or replace stream stream_stations on table citibike_pipelines.public.trips_raw;
+create or replace stream stream_stations on table citibike_pipelines.public.trips_raw
 
 show streams;
 
