@@ -66,6 +66,7 @@ create or replace table trips
   gender integer);
 
 -- 3.2.4
+use role accountadmin;
 use schema public;
 use database citibike;
 list @CITIBIKE_TRIPS;
@@ -84,6 +85,13 @@ CREATE STAGE "CITIBIKE"."PUBLIC".citibike_trips URL = 's3://snowflake-workshop-l
 copy into trips from @citibike_trips
 file_format=CSV;
 
+-- this will not work since there are JSON files mingled in with the CSV now in our stage
+
+copy into trips from @citibike_trips
+file_format=CSV
+PATTERN='.*[.]csv.gz'; 
+
+--by adding a pattern we'll be able to load our CSV, ignoring the JSON
 
 -- 4.2.4
 
