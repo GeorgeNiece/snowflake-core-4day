@@ -89,7 +89,7 @@ file_format=CSV;
 
 copy into trips from @citibike_trips
 file_format=CSV
-PATTERN='.*[.]csv.gz'; 
+PATTERN='.*[.]csv.gz';  
 
 --by adding a pattern we'll be able to load our CSV, ignoring the JSON
 
