@@ -36,7 +36,7 @@ CREATE OR REPLACE TABLE TRIPS
 
 
 -- Create the stage with the S3 bucket
-CREATE or replace STAGE CITIBIKE_PIPELINES.PUBLIC.citibike_trips URL = 's3://snowflake-workshop-lab/citibike-trips/';
+CREATE or replace STAGE CITIBIKE_PIPELINES.PUBLIC.citibike_trips URL = 's3://snowflake-workshop-lab/citibike-trips-csv/';
 
 list @citibike_trips;
 
