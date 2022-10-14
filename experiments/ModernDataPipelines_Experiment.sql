@@ -4,6 +4,12 @@ USE CITIBIKE_PIPELINES.PUBLIC;
 USE WAREHOUSE DATAPIPELINES_WH;
 
 -- 21.6.4 Create Cloud Storage Integration
+-- the storage_aws_role_arn should be the one you copied from the mysnowflakerole that you created in AWS IAM
+-- similar to arn:aws:iam::477729760828:role/mysnowflakerole
+
+-- the storage_allowed_locations should be the bucket and prefix that you created in AWS S3 
+-- similar to s3://snowflake-data-pipeline-session1-george/citibike-pipeline/
+
 create or replace storage integration citibike_snowpipe
 type = external_stage
 storage_provider = s3
