@@ -40,6 +40,10 @@ show stages like '%STREAMING%';
 create or replace table trips_raw (v variant);
 
 -- 22.1.2 Create a SNOW PIPE definition
+-- remember you have to modify your role in AWS to have the correct external id or you will receive an error like
+-- Error assuming AWS_ROLE. Please verify the role and externalId are configured correctly in your AWS policy.
+
+-- Refer to the experiment instructions from the GitHub repo
 create or replace pipe trips_pipe auto_ingest=true as copy into trips_raw from @streaming_data;
 
 -- 22.1.3 Review the Snow pipe definition and make a note of the notification channel value.
