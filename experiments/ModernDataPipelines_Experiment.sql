@@ -21,8 +21,8 @@ storage_allowed_locations = ('s3://<s3bucket>/<folder>/');
 -- record the following values from the below sql statement:
 -- STORAGE_AWS_IAM_USER_ARN 
 -- STORAGE_AWS_EXTERNAL_ID 
-DESC INTEGRATION <storage_integration name>;
-
+-- DESC INTEGRATION <storage_integration name>;
+DESC INTEGRATION citibike_snowpipe;
 
 -- 21.7.1 Creating an External Stage. 
 -- Replace the s3 bucketname and the folder name as highlighted in light green below.
