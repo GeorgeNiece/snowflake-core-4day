@@ -82,9 +82,9 @@ drop stage citibike_trips;
 
 CREATE STAGE "CITIBIKE"."PUBLIC".citibike_trips URL = 's3://snowflake-workshop-lab/citibike-trips';
 
-CREATE OR REPLACE FILE FORMAT my_csv_format
+CREATE OR REPLACE FILE FORMAT csv
   TYPE = CSV
-  FIELD_DELIMITER = '|'
+  FIELD_DELIMITER = ','
   SKIP_HEADER = 1;
   
   
