@@ -87,6 +87,7 @@ CREATE OR REPLACE FILE FORMAT csv
   FIELD_DELIMITER = ','
   FIELD_OPTIONALLY_ENCLOSED_BY = '"'
   ERROR_ON_COLUMN_COUNT_MISMATCH = FALSE
+  EMPTY_FIELD_AS_NULL = TRUE
   SKIP_HEADER = 1;
   
   
@@ -103,7 +104,8 @@ file_format=CSV;
 
 copy into trips from @citibike_trips
 file_format=CSV
-PATTERN='.*[.]csv.gz';  
+ON_ERROR=CONTINUE
+PATTERN='.*[.]csv.gz';
 
 --by adding a pattern we'll be able to load our CSV, ignoring the JSON
 
