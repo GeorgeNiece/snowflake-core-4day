@@ -117,7 +117,9 @@ truncate table trips;
 -- 4.2.7
 use role accountadmin;
 copy into trips from @citibike_trips
-file_format=CITI_BIKE_CSV;
+file_format=CSV
+ON_ERROR=CONTINUE
+PATTERN='.*[.]csv.gz';
 
 /* *********************************************************************************** */
 /* *** MODULE 5  ********************************************************************* */
