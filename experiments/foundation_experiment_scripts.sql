@@ -19,7 +19,8 @@ select cc_name,cc_manager from
 
 select * from 
 "SNOWFLAKE_SAMPLE_DATA"."TPCDS_SF100TCL"."CUSTOMER_DEMOGRAPHICS" limit 10
-
+/* if you were going to use sysadmin you would have to change the permissions for the default compute_wh which used to be owned by default in trial by SYSADMIN and now is ACCOUNTADMIN role */
+grant all privileges on warehouse compute_wh to role sysadmin;
 use role sysadmin;
 
 Use database citibike;
