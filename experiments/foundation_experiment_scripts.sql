@@ -41,8 +41,8 @@ alter database citibike set data_retention_time_in_days = 2;
 /* *********************************************************************************** */
 
 -- 3.1.2
-use database snowflake_sample_data;
-use schema TPCDS_SF100TCL;
+
+
 create database Citibike
 
 -- 3.1.4
@@ -67,15 +67,27 @@ create or replace table trips
 
 -- 3.2.4
 use role accountadmin;
+
 use schema public;
+
 use database citibike;
+
+CREATE STAGE "CITIBIKE"."PUBLIC".citibike_trips URL = 's3://snowflake-workshop-lab/citibike-trips';
+
 list @CITIBIKE_TRIPS;
+
 show stages;
 
 drop stage citibike_trips;
 
 CREATE STAGE "CITIBIKE"."PUBLIC".citibike_trips URL = 's3://snowflake-workshop-lab/citibike-trips';
 
+CREATE OR REPLACE FILE FORMAT my_csv_format
+  TYPE = CSV
+  FIELD_DELIMITER = '|'
+  SKIP_HEADER = 1;
+  
+  
 /* *********************************************************************************** */
 /* *** MODULE 4  ********************************************************************* */
 /* *********************************************************************************** */
