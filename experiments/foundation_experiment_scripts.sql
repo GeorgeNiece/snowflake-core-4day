@@ -169,7 +169,7 @@ create table trips_dev clone trips;
 /* *********************************************************************************** */
 
 -- 6.1.1
-
+use role accountadmin;
 create database weather;
 
 -- 6.1.2
@@ -258,7 +258,6 @@ undrop table json_weather_data;
 
 -- 7.2.1
 
-use role sysadmin;
 use warehouse compute_wh;
 use database citibike;
 use schema public;
