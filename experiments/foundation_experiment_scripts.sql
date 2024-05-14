@@ -174,7 +174,6 @@ create database weather;
 
 -- 6.1.2
 
-use role sysadmin;
 use warehouse compute_wh;
 use database weather;
 use schema public;
