@@ -77,7 +77,12 @@ CREATE STAGE "CITIBIKE"."PUBLIC".citibike_trips URL = 's3://snowflake-workshop-l
 
 list @CITIBIKE_TRIPS;
 
+-- you can view the stages 
+
 show stages;
+
+-- if you dropped the stage and recreated it you would see this looking the same, but not required to drop or recreate.
+-- in a couple of corner cases the 
 
 drop stage citibike_trips;
 
