@@ -1,7 +1,7 @@
 /* *********************************************************************************** */
-/* This SQL file is for testing and debugging external loads with failed Snowpipe                      */
+/* This SQL file is for the Online live Hands On Lab for Snowpipe                      */
 /* *********************************************************************************** */
---drop database citibike;
+
 --Set context
 use role accountadmin;
 create or replace warehouse pipe_wh with warehouse_size = 'medium' warehouse_type = 'standard' auto_suspend = 120 auto_resume = true;
@@ -23,14 +23,14 @@ create or replace table trips_stream
   program_id integer);
 
 --create stage for trips
-create or replace stage pipe_data_trips url = 's3://snowflake-workshop-lab/snowpipe/trips' file_format=(type=csv);
+create or replace stage pipe_data_trips url = 's3://snowflake-workshop-lab/citibike-trips-csv/' file_format=(type=csv);
 
 list @pipe_data_trips;
 
 -- create the trips pipe using SNS topic
 create or replace pipe trips_pipe auto_ingest=true 
 aws_sns_topic='arn:aws:sns:us-east-1:484577546576:snowpipe_sns_lab' 
-as copy into trips_stream from @pipe_data_trips;
+as copy into trips_stream from @pipe_data_trips/;
 
 show pipes;
 
@@ -44,41 +44,6 @@ from table(information_schema.copy_history(table_name=>'TRIPS_STREAM', start_tim
 -- show the data landing in the table
 select count(*) from trips_stream;
 
--- if we don't have entries we can debug trying to use the copy into directly from the external stage without the SNS Topic notifications
-
--- create the trips pipe using SNS topic
-create or replace pipe trips_pipe auto_ingest=true 
-as copy into trips_stream from @pipe_data_trips;
-
--- see if we have copy history now
-
-select *
-from table(information_schema.copy_history(table_name=>'TRIPS_STREAM', start_time=>dateadd('hour', -1, CURRENT_TIMESTAMP())));
-
--- show the data landing in the table on our revision for the pipe 
-select count(*) from trips_stream;
-
--- if we still don't have entries we may have an issue with the access through the pipe to the stage without the required notifications
--- load the data without the pipe 
-
-COPY INTO trips_stream from @pipe_data_trips;
-
-== We'll see an error as noted here if we remap the folder to the wrong file by accident and this portion debugs loading from citibike-trips external stage to the wrong table definition
---Number of columns in file (16) does not match that of the corresponding table (10), use file format option error_on_column_count_mismatch=false to ignore this error
--- Add the option to ignore the error
---create stage for trips
---create or replace stage pipe_data_trips url = 's3://snowflake-workshop-lab/citibike-trips-csv/' file_format=(type=csv, error_on_column_count_mismatch=false);
---COPY INTO trips_stream from @pipe_data_trips ;
-
---create or replace stage pipe_data_trips url = 's3://snowflake-workshop-lab/citibike-trips-csv/' file_format=(type=csv, error_on_column_count_mismatch=false,FIELD_OPTIONALLY_ENCLOSED_BY='"');
-
---COPY INTO trips_stream from @pipe_data_trips ;
-
--- if we still have issues we may just want to skip misformatted data rows
-
---COPY INTO trips_stream from @pipe_data_trips ON_ERROR=CONTINUE;
-
-select count(*) from trips_stream;
 select * from trips_stream limit 5;
 
 -- we can write complex SQL to analyze the data as new files
@@ -132,3 +97,4 @@ use role sysadmin;
 select * from trips_stream limit 200;
 
 use role accountadmin;
+
