@@ -6,7 +6,7 @@
 
 /* *********************************************************************************** */
 /* *** MODULE 1  ********************************************************************* */
-
+ 
 
 use database snowflake_sample_data;
 use schema TPCDS_SF100TCL;
@@ -23,19 +23,7 @@ select * from
 grant all privileges on warehouse compute_wh to role sysadmin;
 use role sysadmin;
 
-Use database citibike;
-
-create database junior_test;
-
-create role junior_dba;
-grant role junior_dba to user SUSANMARTIN
-
-use role junior_dba;
-
-show databases;
-
-alter database citibike set data_retention_time_in_days = 0;
-alter database citibike set data_retention_time_in_days = 2;
+use role accountadmin;
 
 /* *********************************************************************************** */
 /* *** MODULE 3  ********************************************************************* */
@@ -44,7 +32,9 @@ alter database citibike set data_retention_time_in_days = 2;
 -- 3.1.2
 
 
-create database Citibike
+create database Citibike;
+
+use database citibike;
 
 -- 3.1.4
 
